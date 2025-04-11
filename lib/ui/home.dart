@@ -1,7 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
+
 import 'package:igiphy/ui/gif_page.dart';
 
 class Home extends StatefulWidget {
@@ -190,6 +191,9 @@ class _HomeState extends State<Home> {
                         }
                       ),
                     );
+                  },
+                  onLongPress: () {
+                    Share.share( snapshot.data['data'][index]['images']['original']['url']);
                   },
                 );
               } else {
