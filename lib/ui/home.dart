@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:igiphy/ui/gif_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
                 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWM5cHl1eW1mbmQ5Y3NxMGRwZ2VjNDNxa21sa2s1NzBrb2FhMmI4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7buevvUs7Y9Bw9lm/giphy.gif',
                 width: 50,
                 height: 50,
+                gaplessPlayback: true,
               ),
               Text('IGiphys', style: TextStyle(color: Colors.white)),
             ],
@@ -173,11 +174,23 @@ class _HomeState extends State<Home> {
               if (index < snapshot.data['data'].length - 1) {
                 return GestureDetector(
                   child: Image.network(
-                    snapshot.data['data'][index]['images']['downsized']['url'],
+                    snapshot.data['data'][index]['images']['original']['url'],
                     height: 300,
                     fit: BoxFit.cover,
                     gaplessPlayback: true,
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder:
+                            (_, _, __) => GifPage(snapshot.data['data'][index]),
+                        transitionsBuilder: (_, animation, _, child) {
+                          return FadeTransition(opacity: animation, child: child,);
+                        }
+                      ),
+                    );
+                  },
                 );
               } else {
                 return GestureDetector(
