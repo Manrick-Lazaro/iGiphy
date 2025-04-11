@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class GifPage extends StatelessWidget {
   final Map _gifData;
@@ -15,10 +16,18 @@ class GifPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: Colors.white,),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
 
         title: Text(_gifData['title'], style: TextStyle(color: Colors.white)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Share.share(_gifData['images']['original']['url']);
+            },
+            icon: Icon(Icons.share, color: Colors.white70),
+          ),
+        ],
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
