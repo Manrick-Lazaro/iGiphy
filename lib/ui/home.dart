@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import 'package:igiphy/ui/gif_page.dart';
 
@@ -174,11 +175,11 @@ class _HomeState extends State<Home> {
             itemBuilder: (context, index) {
               if (index < snapshot.data['data'].length - 1) {
                 return GestureDetector(
-                  child: Image.network(
-                    snapshot.data['data'][index]['images']['original']['url'],
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: snapshot.data['data'][index]['images']['original']['url'],
                     height: 300,
                     fit: BoxFit.cover,
-                    gaplessPlayback: true,
                   ),
                   onTap: () {
                     Navigator.push(
